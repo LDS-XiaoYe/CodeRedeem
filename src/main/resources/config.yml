@@ -1,0 +1,7 @@
+xingyu2023:
+  commands:
+    - 'give %player% 5501 4'
+    - 'money give %player% 2000'
+  expire_at: 0
+  used_by:
+    - 'Shrimp'
