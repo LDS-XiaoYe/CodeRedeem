@@ -45,9 +45,7 @@ public class RedeemCommand implements CommandExecutor {
         List<String> commands = getCommands(code).stream()
                 .map(s -> s.replaceAll("%player%", player.getName()))
                 .collect(Collectors.toList());
-        for (String command : commands) {
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
-        }
+        commands.forEach(command -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command));
         saveUsedPlayer(code, player);
         player.sendMessage(ChatColor.GREEN + StringConst.USE_SUCCESSFULLY);
     }
