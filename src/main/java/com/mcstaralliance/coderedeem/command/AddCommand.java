@@ -8,7 +8,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,14 +36,13 @@ public class AddCommand implements CommandExecutor {
     }
 
     public List<String> sortCommands(String arg) {
-        return Arrays.asList(arg.split(";")).stream()
+        return Arrays.stream(arg.split(";"))
                 .map(s -> s.replaceAll("_", " "))
                 .collect(Collectors.toList());
     }
     public void saveCode(String code, long timestamp, List<String> commands) {
         FileConfiguration config = plugin.getConfig();
-        config.set(code, null);
-        config.set(code + ".timestamp", timestamp);
+        config.set(code + ".expire_at", timestamp);
         config.set(code + ".commands", commands);
         plugin.saveConfig();
     }
