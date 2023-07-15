@@ -1,3 +1,6 @@
 name: CodeRedeem
 version: '${project.version}'
 main: com.mcstaralliance.coderedeem.CodeRedeem
+commands:
+  redeem:
+  createredeem:
