@@ -58,10 +58,10 @@ public class RedeemCommand implements CommandExecutor {
         plugin.saveConfig();
     }
 
-    public boolean isValidCode(String arg) {
+    public boolean isValidCode(String code) {
         FileConfiguration config = plugin.getConfig();
         Set<String> codes = config.getKeys(false);
-        return codes.contains(arg);
+        return codes.contains(code);
     }
 
     public List<String> getCommands(String code) {

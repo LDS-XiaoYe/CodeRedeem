@@ -35,8 +35,8 @@ public class AddCommand implements CommandExecutor {
         return true;
     }
 
-    public List<String> sortCommands(String arg) {
-        return Arrays.stream(arg.split(";"))
+    public List<String> sortCommands(String command) {
+        return Arrays.stream(command.split(";"))
                 .map(s -> s.replaceAll("_", " "))
                 .collect(Collectors.toList());
     }
