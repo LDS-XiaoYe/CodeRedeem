@@ -12,6 +12,7 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 import java.util.Set;
+import java.util.SimpleTimeZone;
 import java.util.stream.Collectors;
 
 public class RedeemCommand implements CommandExecutor {
@@ -24,6 +25,12 @@ public class RedeemCommand implements CommandExecutor {
             return false;
         }
         Player player = (Player) sender;
+        if (args.length != 1) {
+            player.sendMessage(ChatColor.RED + StringConst.INVALID_ARGUMENTS);
+            player.sendMessage(ChatColor.RED + StringConst.REDEEM_COMMAND_HELP);
+
+            return false;
+        }
         String input = args[0];
         if (!isValidCode(input)) {
             player.sendMessage(ChatColor.RED + StringConst.INVALID_CODE);

@@ -22,9 +22,10 @@ public class AddCommand implements CommandExecutor {
             return false;
         }
 
-        if (args.length > 3) {
-            // 三个参数依次为 兑换码文本，失效时间（永不失效填 0），执行的指令（用分号分割）
-            sender.sendMessage(StringConst.INVALID_ARGUMENTS);
+        if (args.length != 3) {
+            sender.sendMessage(ChatColor.RED + StringConst.INVALID_ARGUMENTS);
+            sender.sendMessage(ChatColor.RED + StringConst.ADD_COMMAND_HELP_1);
+            sender.sendMessage(ChatColor.RED + StringConst.ADD_COMMAND_HELP_2);
             return false;
         }
 
