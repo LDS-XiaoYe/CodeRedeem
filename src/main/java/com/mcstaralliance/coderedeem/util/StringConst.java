@@ -7,7 +7,7 @@ public class StringConst {
     public static final String PERMISSION_DENIED = "你没有权限执行此命令。";
     public static final String INVALID_ARGUMENTS = "参数不正确。";
     public static final String USE_SUCCESSFULLY = "兑换成功。";
-    public static final String ADD_COMMAND_HELP_1 = "Usage: /createredeem <code context> <expire time> <commands>";
+    public static final String ADD_COMMAND_HELP_1 = "Usage: /createredeem <code> <expire_at> <commands>";
     public static final String ADD_COMMAND_HELP_2 = "三个参数依次为兑换码文本、失效时间（永不失效填 0）、执行的命令（用分号分割，用下划线替代空格）";
-    public static final String REDEEM_COMMAND_HELP = "Usage: /redeem <code context>";
+    public static final String REDEEM_COMMAND_HELP = "Usage: /redeem <code>";
 }
