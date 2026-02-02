@@ -1,6 +1,7 @@
 name: CodeRedeem
 version: '${project.version}'
 main: com.mcstaralliance.coderedeem.CodeRedeem
+api-version: '1.20'
 commands:
   redeem:
   createredeem:

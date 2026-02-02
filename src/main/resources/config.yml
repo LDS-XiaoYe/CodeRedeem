@@ -1,7 +1,20 @@
-xingyu2023:
-  commands:
-    - 'give %player% 5501 4'
-    - 'money give %player% 2000'
-  expire_at: 0
-  used_by:
-    - 'Shrimp'
+# 是否启用MySQL数据库存储（true=MySQL, false=YAML配置文件）
+enable-mysql: false
+
+# MySQL数据库配置（仅在enable-mysql为true时生效）
+mysql:
+  host: localhost
+  port: 3306
+  database: coderedeem
+  username: root
+  password: ''
+  useSSL: false
+
+# YAML存储模式下的兑换码示例（仅在enable-mysql为false时生效）
+# xingyu2023:
+#   commands:
+#     - 'give %player% 5501 4'
+#     - 'money give %player% 2000'
+#   expire_at: 0
+#   used_by:
+#     - 'Shrimp'

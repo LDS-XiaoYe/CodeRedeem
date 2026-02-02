@@ -1,17 +1,16 @@
 package com.mcstaralliance.coderedeem.command;
 
 import com.mcstaralliance.coderedeem.CodeRedeem;
+import com.mcstaralliance.coderedeem.database.DataStorage;
 import com.mcstaralliance.coderedeem.util.StringConst;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public class RedeemCommand implements CommandExecutor {
@@ -57,37 +56,33 @@ public class RedeemCommand implements CommandExecutor {
     }
 
     public void saveUsedPlayer(String code, Player player) {
-        FileConfiguration config = plugin.getConfig();
-        List<String> players = config.getStringList(code + ".used_by");
-        players.add(player.getName());
-        config.set(code + ".used_by", players);
-        plugin.saveConfig();
+        DataStorage storage = plugin.getDataStorage();
+        storage.savePlayerUsage(code, player.getName());
     }
 
     public boolean isValidCode(String code) {
-        FileConfiguration config = plugin.getConfig();
-        Set<String> codes = config.getKeys(false);
-        return codes.contains(code);
+        DataStorage storage = plugin.getDataStorage();
+        return storage.isValidCode(code);
     }
 
     public List<String> getCommands(String code) {
-        FileConfiguration config = plugin.getConfig();
-        return config.getStringList(code + ".commands");
+        DataStorage storage = plugin.getDataStorage();
+        return storage.getCommands(code);
     }
 
     public boolean isExpirationEnabled(String code) {
-        FileConfiguration config = plugin.getConfig();
-        long expireAt = config.getLong(code + ".expire_at");
+        long expireAt = getTimestamp(code);
         return expireAt != 0;
     }
 
     public List<String> getUsedPlayers(String code) {
-        FileConfiguration config = plugin.getConfig();
-        return config.getStringList(code + ".used_by");
+        DataStorage storage = plugin.getDataStorage();
+        return storage.getUsedPlayers(code);
     }
 
     public boolean isUsedBefore(String code, Player player) {
-        return getUsedPlayers(code).contains(player.getName());
+        DataStorage storage = plugin.getDataStorage();
+        return storage.hasPlayerUsed(code, player.getName());
     }
 
     public boolean isExpiredCode(String code) {
@@ -98,7 +93,7 @@ public class RedeemCommand implements CommandExecutor {
     }
 
     public long getTimestamp(String code) {
-        FileConfiguration config = plugin.getConfig();
-        return config.getLong(code + ".expire_at");
+        DataStorage storage = plugin.getDataStorage();
+        return storage.getExpireTime(code);
     }
 }

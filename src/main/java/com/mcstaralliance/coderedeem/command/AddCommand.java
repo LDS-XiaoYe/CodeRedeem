@@ -1,12 +1,12 @@
 package com.mcstaralliance.coderedeem.command;
 
 import com.mcstaralliance.coderedeem.CodeRedeem;
+import com.mcstaralliance.coderedeem.database.DataStorage;
 import com.mcstaralliance.coderedeem.util.StringConst;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.Arrays;
 import java.util.List;
@@ -32,7 +32,13 @@ public class AddCommand implements CommandExecutor {
         String code = args[0];
         long timestamp = Long.parseLong(args[1]);
         String commands = args[2];
-        saveCode(code, timestamp, sortCommands(commands));
+        
+        if (saveCode(code, timestamp, sortCommands(commands))) {
+            sender.sendMessage(ChatColor.GREEN + "兑换码创建成功！");
+        } else {
+            sender.sendMessage(ChatColor.RED + "兑换码创建失败，请检查存储配置。");
+        }
+        
         return true;
     }
 
@@ -41,10 +47,9 @@ public class AddCommand implements CommandExecutor {
                 .map(s -> s.replaceAll("_", " "))
                 .collect(Collectors.toList());
     }
-    public void saveCode(String code, long timestamp, List<String> commands) {
-        FileConfiguration config = plugin.getConfig();
-        config.set(code + ".expire_at", timestamp);
-        config.set(code + ".commands", commands);
-        plugin.saveConfig();
+    
+    public boolean saveCode(String code, long timestamp, List<String> commands) {
+        DataStorage storage = plugin.getDataStorage();
+        return storage.saveCode(code, timestamp, commands);
     }
 }
