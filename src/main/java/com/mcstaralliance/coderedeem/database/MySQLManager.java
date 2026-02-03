@@ -123,7 +123,8 @@ public class MySQLManager implements DataStorage {
     }
 
     public boolean isConnected() {
-        try { && connection.isValid(2);
+        try {
+            return connection != null && !connection.isClosed() && connection.isValid(2);
         } catch (SQLException e) {
             return false;
         }
@@ -131,8 +132,7 @@ public class MySQLManager implements DataStorage {
 
     private void checkConnection() throws SQLException {
         if (!isConnected()) {
-            plugin.getLogger().warning("MySQL连接已断开，正在尝试重新连接...");ion() throws SQLException {
-        if (!isConnected()) {
+            plugin.getLogger().warning("MySQL连接已断开，正在尝试重新连接...");
             connect();
         }
     }

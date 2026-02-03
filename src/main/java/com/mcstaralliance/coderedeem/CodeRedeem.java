@@ -46,11 +46,11 @@ public final class CodeRedeem extends JavaPlugin {
         
         getLogger().info("使用 " + dataStorage.getStorageType() + " 存储模式");
         
-        // 注册命令redeem").setTabCompleter(new RedeemTabCompleter());
+        // 注册命令
+        Bukkit.getPluginCommand("redeem").setExecutor(new RedeemCommand());
+        Bukkit.getPluginCommand("redeem").setTabCompleter(new RedeemTabCompleter());
         Bukkit.getPluginCommand("createredeem").setExecutor(new AddCommand());
         Bukkit.getPluginCommand("createredeem").setTabCompleter(new AddCommandTabCompleter());
-        Bukkit.getPluginCommand("redeem").setExecutor(new RedeemCommand());
-        Bukkit.getPluginCommand("createredeem").setExecutor(new AddCommand());
         
         getLogger().info("CodeRedeem插件已启用！");
     }
