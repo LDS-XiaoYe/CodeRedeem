@@ -50,7 +50,8 @@ public class MySQLManager implements DataStorage {
             Class.forName("com.mysql.cj.jdbc.Driver");
             String url = "jdbc:mysql://" + host + ":" + port + "/" + database 
                     + "?autoReconnect=true&useSSL=" + useSSL 
-                    + "&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=UTF-8";
+                    + "&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=UTF-8"
+                    + "&maxReconnects=3&initialTimeout=2";
             
             connection = DriverManager.getConnection(url, username, password);
             plugin.getLogger().info("成功连接到MySQL数据库！");
@@ -122,14 +123,15 @@ public class MySQLManager implements DataStorage {
     }
 
     public boolean isConnected() {
-        try {
-            return connection != null && !connection.isClosed();
+        try { && connection.isValid(2);
         } catch (SQLException e) {
             return false;
         }
     }
 
     private void checkConnection() throws SQLException {
+        if (!isConnected()) {
+            plugin.getLogger().warning("MySQL连接已断开，正在尝试重新连接...");ion() throws SQLException {
         if (!isConnected()) {
             connect();
         }
